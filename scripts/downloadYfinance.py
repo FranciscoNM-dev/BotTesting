@@ -1,18 +1,11 @@
 import yfinance as yf
+import pandas as pd
+import os
+
+df = yf.download('MSFT', period="1y", interval="1d", auto_adjust=True, group_by='ticker')
+repoRoute = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+dataRoute = os.path.join(repoRoute, 'data')
 
 
-dat = yf.Ticker("MSFT")
-
-#One ticker
-dat = yf.Ticker("MSFT")
-dat.info
-dat.calendar
-dat.analyst_price_targets
-dat.quarterly_income_stmt
-dat.history(period='1mo')
-dat.option_chain(dat.options[0]).calls
-
-#More tickers
-tickers = yf.Tickers('MSFT AAPL GOOG')
-tickers.tickers['MSFT'].info
-#yf.download(['MSFT', 'AAPL', 'GOOG'], period='1mo')
+df.to_csv(path_or_buf = os.path.join(dataRoute, 'ejemploMSFT.csv'))
